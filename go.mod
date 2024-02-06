@@ -6,6 +6,7 @@ require github.com/go-openapi/strfmt v0.22.0
 
 require (
 	github.com/MicahParks/keyfunc/v2 v2.1.0 // indirect
+	github.com/dlclark/regexp2 v1.10.0 // indirect
 	github.com/gofiber/contrib/jwt v1.0.8 // indirect
 )
 

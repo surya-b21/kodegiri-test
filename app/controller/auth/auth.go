@@ -5,32 +5,56 @@ import (
 	"encoding/base64"
 	"kodegiri/app/model"
 	"kodegiri/app/services"
+	"log"
+	"net/mail"
 	"time"
 
+	"github.com/dlclark/regexp2"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type LoginPayload struct {
-	Email         *string `json:"email"`
-	Password      *string `json:"password"`
-	RememberToken *string `json:"remember_token"`
+	Email         *string `json:"email,omitempty"`
+	Password      *string `json:"password,omitempty"`
+	RememberToken *string `json:"remember_token,omitempty"`
 }
 
 func Login(c *fiber.Ctx) error {
 	db := services.DB
 
 	payload := LoginPayload{}
-	if err := c.BodyParser(payload); err != nil {
+	if err := c.BodyParser(&payload); err != nil {
+		log.Println(err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "Invalid Payload",
 		})
 	}
 
+	//validate email
+	if payload.Email != nil {
+		if _, err := mail.ParseAddress(*payload.Email); nil != err {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"message": "Invalid email",
+			})
+		}
+	}
+
+	// validate password
+	if payload.Password != nil {
+		pattern := `^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-])[A-Za-z0-9!@#$%^&*()_+=-]{8,}$`
+		regex := regexp2.MustCompile(pattern, 0)
+		if match, _ := regex.MatchString(*payload.Password); !match {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"message": "Invalid password",
+			})
+		}
+	}
+
 	// find user
 	user := model.Users{}
-	db.Where("email = ?", *payload.Email).Or("remember_token = ?", *payload.RememberToken).First(&user)
+	db.Where("email = ?", payload.Email).Or("remember_token = ?", payload.RememberToken).First(&user)
 
 	if user.Email == nil {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
@@ -53,7 +77,7 @@ func Login(c *fiber.Ctx) error {
 
 		rememberToken := base64.URLEncoding.EncodeToString(b)
 		user.RememberToken = &rememberToken
-		db.Model(&user).Update("remember_token", *user.RememberToken)
+		db.Model(&user).Update("remember_token", user.RememberToken)
 	}
 
 	claims := jwt.MapClaims{
@@ -74,5 +98,6 @@ func Login(c *fiber.Ctx) error {
 		"user":           user,
 		"token":          t,
 		"remember_token": user.RememberToken,
+		"expiry":         time.Now().Add(time.Hour * 72).UnixMilli(),
 	})
 }
