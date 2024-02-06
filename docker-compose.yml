@@ -1,0 +1,44 @@
+version: '3.8'
+
+networks:
+  mynet:
+    driver: bridge
+
+volumes:
+  goroot: {}
+  gocache: {}
+  postgres: {}
+
+services:
+  app:
+    image: golang:1.21-alpine
+    ports:
+      - 8000:8000
+    environment:
+      - TZ=Asia/Jakarta
+      - PORT=8000
+    volumes:
+      - goroot:/go
+      - gocache:/.cache/go-build
+      - .:/app
+    working_dir: /app
+    command:
+      - tail
+      - -f
+      - /etc/hosts
+    networks:
+      - mynet
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=S3cret
+      - POSTGRES_USER=dockerdb
+      - POSTGRES_DB=postgres
+    
