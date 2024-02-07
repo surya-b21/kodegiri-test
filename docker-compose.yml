@@ -45,4 +45,14 @@ services:
       mynet:
         aliases:
           - postgres
+
+  swagger:
+    container_name: swagger-api
+    image: swaggerapi/swagger-ui:latest
+    environment:
+      - URL=/docs/swagger.yaml
+    volumes:
+      - ./docs:/usr/share/nginx/html/docs
+    ports:
+      - 8080:8080
     

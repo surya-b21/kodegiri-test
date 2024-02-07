@@ -1,0 +1,39 @@
+basePath: /api
+definitions:
+  auth.LoginPayload:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      remember_token:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: for test purpose
+  title: Kodegiri App
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Get token for auth
+      parameters:
+      - description: Login Payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/auth.LoginPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Login function
+      tags:
+      - Auth
+swagger: "2.0"

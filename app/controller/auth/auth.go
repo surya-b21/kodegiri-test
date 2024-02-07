@@ -21,6 +21,15 @@ type LoginPayload struct {
 	RememberToken *string `json:"remember_token,omitempty"`
 }
 
+// Login godoc
+// @Summary      Login function
+// @Description  Get token for auth
+// @Tags         Auth
+// @Accept       json
+// @Produce		 json
+// @Param        body body LoginPayload true "Login Payload"
+// @Success      200
+// @Router       /login [post]
 func Login(c *fiber.Ctx) error {
 	db := services.DB
 
