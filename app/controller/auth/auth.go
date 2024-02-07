@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"kodegiri/app/model"
 	"kodegiri/app/services"
-	"log"
 	"net/mail"
 	"time"
 
@@ -35,7 +34,6 @@ func Login(c *fiber.Ctx) error {
 
 	payload := LoginPayload{}
 	if err := c.BodyParser(&payload); err != nil {
-		log.Println(err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "Invalid Payload",
 		})

@@ -61,6 +61,32 @@ const docTemplate = `{
                     "type": "string"
                 }
             }
+        },
+        "model.Tier": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "maximal_point": {
+                    "type": "integer"
+                },
+                "minimal_point": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
         }
     }
 }`

@@ -9,6 +9,24 @@ definitions:
       remember_token:
         type: string
     type: object
+  model.Tier:
+    properties:
+      created_at:
+        format: date-time
+        type: string
+      id:
+        format: uuid
+        type: string
+      maximal_point:
+        type: integer
+      minimal_point:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        format: date-time
+        type: string
+    type: object
 host: localhost:8000
 info:
   contact: {}

@@ -7,9 +7,15 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// Users Model
 type Users struct {
 	Base
 	UsersAPI
+	ReedemedPoint    int `json:"reedemed_point,omitempty"`
+	EarnedPoint      int `json:"earned_point,omitempty"`
+	RemaiendPoint    int `json:"remained_point,omitempty"`
+	Point            *Point
+	PointTransaction []*PointTransaction
 }
 
 type UsersAPI struct {
@@ -22,6 +28,7 @@ type UsersAPI struct {
 	Address       *string          `json:"address,omitempty" gorm:"type:text"`
 	JoinDate      *strfmt.Date     `json:"join_date,omitempty" gorm:"type:date"`
 	Status        *string          `json:"status,omitempty" gorm:"type:varchar(10)"`
+	MemberNumber  *int             `json:"member_number,omitempty" gorm:"type:integer"`
 }
 
 func (s *Users) Seed() *[]Users {
@@ -32,16 +39,18 @@ func (s *Users) Seed() *[]Users {
 	birthDate := strfmt.Date(time.Now().AddDate(-20, 0, 0))
 	joinDate := strfmt.Date(time.Now().AddDate(0, -3, 0))
 	status := "active"
+	memberNumber := 1
 
 	users := []Users{
 		{
 			UsersAPI: UsersAPI{
-				Email:     (*strfmt.Email)(&email),
-				Password:  &password,
-				Name:      &name,
-				BirthDate: &birthDate,
-				JoinDate:  &joinDate,
-				Status:    &status,
+				Email:        (*strfmt.Email)(&email),
+				Password:     &password,
+				Name:         &name,
+				BirthDate:    &birthDate,
+				JoinDate:     &joinDate,
+				Status:       &status,
+				MemberNumber: &memberNumber,
 			},
 		},
 	}
