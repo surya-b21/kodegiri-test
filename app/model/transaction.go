@@ -38,14 +38,11 @@ type TransactionItemAPI struct {
 }
 
 func (t *Transaction) BeforeCreate(tx *gorm.DB) error {
-	var count int64
+	count := int64(0)
 	now := strfmt.DateTime(time.Now())
-	mod := tx.Model(t).Count(&count)
-	if mod.RowsAffected < 1 {
-		count = 0
-	}
+	tx.Model(t).Count(&count)
 
-	transactionID := fmt.Sprintf("TRINV/%06d/%s", count, time.Now().Format("01022006"))
+	transactionID := fmt.Sprintf("TRINV/%06d/%s", count+1, time.Now().Format("01022006"))
 	t.TransactionID = &transactionID
 	t.TransactionDate = &now
 	return nil
