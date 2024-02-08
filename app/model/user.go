@@ -10,17 +10,17 @@ import (
 )
 
 // Users Model
-type Users struct {
+type User struct {
 	Base
-	UsersAPI
-	ReedemedPoint    int `json:"reedemed_point,omitempty"`
-	EarnedPoint      int `json:"earned_point,omitempty"`
-	RemaiendPoint    int `json:"remained_point,omitempty"`
-	Point            *Point
-	PointTransaction []*PointTransaction
+	UserAPI
+	ReedemedPoint    int                 `json:"reedemed_point,omitempty"`
+	EarnedPoint      int                 `json:"earned_point,omitempty"`
+	RemaiendPoint    int                 `json:"remained_point,omitempty"`
+	Point            *Point              `gorm:"foreginKey:UserID;references:ID"`
+	PointTransaction []*PointTransaction `gorm:"foreginKey:UserID;references:ID"`
 }
 
-type UsersAPI struct {
+type UserAPI struct {
 	Email         *strfmt.Email    `json:"email,omitempty" gorm:"type:varchar(100); uniqueIndex"`
 	Password      *strfmt.Password `json:"-" gorm:"type:text"`
 	RememberToken *string          `json:"-" gorm:"type:text; uniqueIndex"`
@@ -33,20 +33,20 @@ type UsersAPI struct {
 	MemberNumber  *string          `json:"member_number,omitempty" gorm:"type:varchar(5);uniqueIndex"`
 }
 
-func (s *Users) Seed() *[]Users {
+func (s *User) Seed() *[]User {
 	hash, _ := bcrypt.GenerateFromPassword([]byte("$Password123"), bcrypt.MinCost)
 	password := strfmt.Password(string(hash))
-	email := "test@mail.com"
+	email := strfmt.Email("test@mail.com")
 	name := "Test Account"
 	birthDate := strfmt.Date(time.Now().AddDate(-20, 0, 0))
 	joinDate := strfmt.Date(time.Now().AddDate(0, -3, 0))
 	status := "active"
 	memberNumber := fmt.Sprintf("%05d", 10000+rand.Intn(90000))
 
-	users := []Users{
+	users := []User{
 		{
-			UsersAPI: UsersAPI{
-				Email:        (*strfmt.Email)(&email),
+			UserAPI: UserAPI{
+				Email:        &email,
 				Password:     &password,
 				Name:         &name,
 				BirthDate:    &birthDate,

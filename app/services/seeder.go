@@ -30,7 +30,7 @@ func SeedAll(db *gorm.DB) error {
 }
 
 var (
-	user model.Users
+	user model.User
 )
 
 // DataSeeds data to seeds

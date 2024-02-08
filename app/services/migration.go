@@ -13,5 +13,7 @@ func AutoMigrate(db *gorm.DB) error {
 
 // ModelList variable
 var ModelList []interface{} = []interface{}{
-	&model.Users{},
+	&model.User{},
+	&model.Transaction{},
+	&model.Tier{},
 }

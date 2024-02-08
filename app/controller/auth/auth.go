@@ -60,7 +60,7 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	// find user
-	user := model.Users{}
+	user := model.User{}
 	db.Where("email = ?", payload.Email).Or("remember_token = ?", payload.RememberToken).First(&user)
 
 	if user.Email == nil {

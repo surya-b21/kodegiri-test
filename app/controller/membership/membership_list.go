@@ -16,7 +16,7 @@ import (
 func ListMembership(c *fiber.Ctx) error {
 	db := services.DB
 
-	list := []model.Users{}
+	list := []model.User{}
 	mod := db.Select("member_number", "name", "email", "phone_number", "join_date", "`Point`.`point` as remained_point").Joins("Point").Find(&list)
 
 	if mod.RowsAffected < 1 {

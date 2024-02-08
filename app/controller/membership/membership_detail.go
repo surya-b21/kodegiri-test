@@ -17,7 +17,7 @@ import (
 func DetailMembership(c *fiber.Ctx) error {
 	db := services.DB
 
-	membership := model.Users{}
+	membership := model.User{}
 	mod := db.Joins("Point").Joins("PointTransaction").First(&membership, `id = ?`, c.Params("id"))
 	if mod.RowsAffected < 1 {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{

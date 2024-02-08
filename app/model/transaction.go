@@ -13,7 +13,7 @@ import (
 type Transaction struct {
 	Base
 	TransactionAPI
-	Users *Users
+	Users *User
 	Item  []*TransactionItem
 }
 
