@@ -10,10 +10,12 @@ import (
 // StoreTierManagement func
 // @Summary      Tier Store function
 // @Description  Store a tier
+// @Security ApiKeyAuth
 // @Tags TierManagement
 // @Params body json model.TierAPI true "Tier payload"
 // @Success 200 {object} model.Tier
 // @Failure 400
+// @Router       /tier-management [post]
 func StoreTierManagement(c *fiber.Ctx) error {
 	payload := model.TierAPI{}
 	if err := c.BodyParser(&payload); err != nil {

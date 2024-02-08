@@ -10,10 +10,12 @@ import (
 // DeleteTierManagement
 // @Summary      Tier Delete function
 // @Description  Delete a tier
+// @Security ApiKeyAuth
 // @Tags TierManagement
 // @Params id path string true "Tier id"
 // @Success 200
 // @Failure 404
+// @Router       /tier-management/{id} [delete]
 func DeleteTierManagement(c *fiber.Ctx) error {
 	db := services.DB
 

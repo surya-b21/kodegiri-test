@@ -11,8 +11,10 @@ import (
 // @Summary      LoyaltiProgramList function
 // @Description  Get all loyalty program list
 // @Tags LoyaltyProgram
+// @Security ApiKeyAuth
 // @Success 200 {object} []model.LoyaltyProgram
 // @Failure 404
+// @Router       /loyalty-program [get]
 func ListLoyaltyProgram(c *fiber.Ctx) error {
 	db := services.DB
 

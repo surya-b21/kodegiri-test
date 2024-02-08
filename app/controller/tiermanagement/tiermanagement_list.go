@@ -10,9 +10,11 @@ import (
 // ListTierManagement
 // @Summary      Tier List function
 // @Description  Get all tier list
+// @Security ApiKeyAuth
 // @Tags TierManagement
 // @Success 200 {object} []model.Tier
 // @Failure 404
+// @Router       /tier-management [get]
 func ListTierManagement(c *fiber.Ctx) error {
 	db := services.DB
 

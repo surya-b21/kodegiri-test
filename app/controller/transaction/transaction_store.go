@@ -11,10 +11,12 @@ import (
 // StoreTransaction
 // @Summary      StoreTransaction function
 // @Description  Store a transaction
+// @Security ApiKeyAuth
 // @Tags StoreTransaction
 // @Params body json TransactionPayload true "Transaction payload"
 // @Success 200
 // @Failure 400
+// @Router       /transaction [post]
 func StoreTransaction(c *fiber.Ctx) error {
 	payload := TransactionPayload{}
 	if err := c.BodyParser(&payload); err != nil {

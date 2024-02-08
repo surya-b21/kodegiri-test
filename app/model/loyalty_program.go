@@ -14,8 +14,8 @@ type LoyaltyProgram struct {
 
 type LoyaltyProgramAPI struct {
 	Name                             *string          `json:"name,omitempty" gorm:"type:varchar(50)"`
-	LoyaltyStart                     *strfmt.DateTime `json:"loyalty_start,omitempty" gorm:"type:datetime"`
-	LoyaltyEnd                       *strfmt.DateTime `json:"loyalty_end,omitempty" gorm:"type:datetime"`
+	LoyaltyStart                     *strfmt.DateTime `json:"loyalty_start,omitempty" gorm:"type:datetime" swaggertype:"string"`
+	LoyaltyEnd                       *strfmt.DateTime `json:"loyalty_end,omitempty" gorm:"type:datetime" swaggertype:"string"`
 	PolicyTransactionAmount          *int             `json:"policy_transaction_amount,omitempty" gorm:"type:integer"`
 	PolicyTransactionQty             *int             `json:"policy_transaction_qty,omitempty" gorm:"type:integer"`
 	PolicyIsTransactionFirstPurchase *bool            `json:"policy_is_transaction_first_purchase,omitempty" gorm:"type:bool"`

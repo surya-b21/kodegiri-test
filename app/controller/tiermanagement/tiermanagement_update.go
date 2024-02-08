@@ -10,10 +10,12 @@ import (
 // UpdateTierManagement func
 // @Summary      Tier Update function
 // @Description  Update a tier
+// @Security ApiKeyAuth
 // @Tags TierManagement
 // @Params body json model.TierAPI true "Tier payload"
 // @Success 200 {object} model.Tier
 // @Failure 400
+// @Router       /tier-management/{id} [put]
 func UpdateTierManagement(c *fiber.Ctx) error {
 	payload := model.TierAPI{}
 	if err := c.BodyParser(&payload); err != nil {

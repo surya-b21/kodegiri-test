@@ -8,6 +8,15 @@ import (
 )
 
 // StoreMemberActivity func
+// @Summary      Login function
+// @Description  Get token for auth
+// @Security ApiKeyAuth
+// @Tags         Auth
+// @Accept       json
+// @Produce		 json
+// @Param        body body MemberActivityPayload true "Member Activity Payload"
+// @Success      200
+// @Router       /member-activity [post]
 func StoreMemberActivity(c *fiber.Ctx) error {
 	payload := MemberActivityPayload{}
 	if err := c.BodyParser(&payload); err != nil {

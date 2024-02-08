@@ -16,6 +16,7 @@ import (
 // @Success 200
 // @Failure 400
 // @Failure 404
+// @Router       /member-get-member [post]
 func StoreMemberGetMember(c *fiber.Ctx) error {
 	payload := MemberGetMemberPayload{}
 	if err := c.BodyParser(&payload); err != nil {

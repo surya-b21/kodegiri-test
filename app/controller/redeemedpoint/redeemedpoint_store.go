@@ -10,10 +10,12 @@ import (
 // ReedemedPointStore func
 // @Summary      ReedemedPointStore function
 // @Description  Store a reedemed point
+// @Security ApiKeyAuth
 // @Tags ReedemedPointStore
 // @Params body json ReedemedPointPayload true "ReedemedPoint payload"
 // @Success 200
 // @Failure 400
+// @Router       /redeem-point [post]
 func ReedemedPointStore(c *fiber.Ctx) error {
 	payload := ReedemedPointPayload{}
 	if err := c.BodyParser(&payload); err != nil {

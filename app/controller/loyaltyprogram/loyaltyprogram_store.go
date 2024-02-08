@@ -11,9 +11,11 @@ import (
 // @Summary      LoyaltyPrograStore function
 // @Description  Store a loyalty program
 // @Tags LoyaltyProgram
+// @Security ApiKeyAuth
 // @Params body json LoyaltyProgramPayload true "LoyaltyProgram payload"
 // @Success 200
 // @Failure 400
+// @Router       /loyalty-program [post]
 func StoreLoyaltyProgram(c *fiber.Ctx) error {
 	payload := LoyaltyProgramPayload{}
 	if err := c.BodyParser(&payload); err != nil {

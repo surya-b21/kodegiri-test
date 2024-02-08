@@ -11,9 +11,11 @@ import (
 // @Summary      Tier Detail function
 // @Description  Get a tier detail
 // @Tags TierManagement
+// @Security ApiKeyAuth
 // @Params id path string true "Tier id"
 // @Success 200 {object} model.Tier
 // @Failure 404
+// @Router       /tier-management/{id} [get]
 func DetailTierManagement(c *fiber.Ctx) error {
 	db := services.DB
 

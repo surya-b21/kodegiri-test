@@ -10,10 +10,12 @@ import (
 // Membership Detail
 // @Summary      Membership Detail function
 // @Description  Get membership detail
+// @Security ApiKeyAuth
 // @Params id path string false "membership id"
 // @Tags Membership
 // @Success 200
 // @Failure 404
+// @Router       /membership/{id} [get]
 func DetailMembership(c *fiber.Ctx) error {
 	db := services.DB
 
