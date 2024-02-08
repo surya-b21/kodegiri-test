@@ -13,8 +13,9 @@ type PointTransaction struct {
 }
 
 type PointTransactionAPI struct {
-	Type    *string    `json:"type,omitempty" gorm:"type:varchar(10)"`
-	Value   *int       `json:"value,omitempty" gorm:"type:integer"`
-	UserID  *uuid.UUID `json:"user_id,omitempty" gorm:"type:varchar(36)"`
-	PointID *uuid.UUID `json:"point_id,omitempty" gorm:"type:varchar(36)"`
+	Type           *string    `json:"type,omitempty" gorm:"type:varchar(10)"`
+	Value          *int       `json:"value,omitempty" gorm:"type:integer"`
+	RemainingPoint *int       `json:"remaining_point,omitempty" gorm:"type:integer"`
+	UserID         *uuid.UUID `json:"user_id,omitempty" gorm:"type:varchar(36)"`
+	PointID        *uuid.UUID `json:"point_id,omitempty" gorm:"type:varchar(36)"`
 }
