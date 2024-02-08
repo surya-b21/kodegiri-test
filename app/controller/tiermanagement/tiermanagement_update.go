@@ -38,7 +38,7 @@ func UpdateTierManagement(c *fiber.Ctx) error {
 	tier.MinimalPoint = payload.MinimalPoint
 	db.Save(&tier)
 
-	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "Successfully update tier",
 		"tier":    tier,
 	})

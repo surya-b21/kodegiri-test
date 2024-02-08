@@ -1,6 +1,8 @@
 package model
 
 import (
+	"fmt"
+	"math/rand"
 	"time"
 
 	"github.com/go-openapi/strfmt"
@@ -28,7 +30,7 @@ type UsersAPI struct {
 	Address       *string          `json:"address,omitempty" gorm:"type:text"`
 	JoinDate      *strfmt.Date     `json:"join_date,omitempty" gorm:"type:date"`
 	Status        *string          `json:"status,omitempty" gorm:"type:varchar(10)"`
-	MemberNumber  *int             `json:"member_number,omitempty" gorm:"type:integer"`
+	MemberNumber  *string          `json:"member_number,omitempty" gorm:"type:varchar(5);uniqueIndex"`
 }
 
 func (s *Users) Seed() *[]Users {
@@ -39,7 +41,7 @@ func (s *Users) Seed() *[]Users {
 	birthDate := strfmt.Date(time.Now().AddDate(-20, 0, 0))
 	joinDate := strfmt.Date(time.Now().AddDate(0, -3, 0))
 	status := "active"
-	memberNumber := 1
+	memberNumber := fmt.Sprintf("%05d", 10000+rand.Intn(90000))
 
 	users := []Users{
 		{
