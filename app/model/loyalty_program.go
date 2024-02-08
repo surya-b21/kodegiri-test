@@ -29,8 +29,12 @@ type LoyaltyProgramAPI struct {
 
 type LoyaltyProgramTier struct {
 	Base
+	LoyaltyProgramTierAPI
+	LoyaltyProgram *LoyaltyProgram
+	Tier           *Tier
+}
+
+type LoyaltyProgramTierAPI struct {
 	LoyaltyProgramID *uuid.UUID `json:"loyalty_program_id" gorm:"type:varchar(36)"`
 	TierID           *uuid.UUID `json:"tier_id" gorm:"type:varchar(36)"`
-	LoyaltyProgram   *LoyaltyProgram
-	Tier             *Tier
 }

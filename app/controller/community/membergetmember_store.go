@@ -40,7 +40,7 @@ func StoreMemberGetMember(c *fiber.Ctx) error {
 	mgm.PersonPhoneNumber = &payload.PersonPhoneNumber
 	db.Create(&mgm)
 
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "Member get member successfully created",
 	})
 }

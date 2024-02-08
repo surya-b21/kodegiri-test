@@ -31,7 +31,7 @@ func StoreMemberActivity(c *fiber.Ctx) error {
 	mact.ActivityName = &payload.ActivityName
 	db.Create(&mact)
 
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"message": "Member get member successfully created",
 	})
 }
