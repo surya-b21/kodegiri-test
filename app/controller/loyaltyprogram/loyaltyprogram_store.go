@@ -8,11 +8,11 @@ import (
 )
 
 // StoreLoyaltyProgram func
-// @Summary      LoyaltyPrograStore function
+// @Summary      Store Loyalty Program
 // @Description  Store a loyalty program
 // @Tags LoyaltyProgram
 // @Security ApiKeyAuth
-// @Params body json LoyaltyProgramPayload true "LoyaltyProgram payload"
+// @Param        body body LoyaltyProgramPayload true "Loyalty Program Payload"
 // @Success 200
 // @Failure 400
 // @Router       /loyalty-program [post]

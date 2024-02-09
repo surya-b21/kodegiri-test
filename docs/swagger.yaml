@@ -16,6 +16,50 @@ definitions:
       member_id:
         type: string
     type: object
+  community.MemberGetMemberPayload:
+    properties:
+      member_id:
+        type: string
+      person_email:
+        type: string
+      person_name:
+        type: string
+      person_phone_number:
+        type: string
+    type: object
+  loyaltyprogram.LoyaltyProgramPayload:
+    properties:
+      benefit_community_fixed_point:
+        type: integer
+      benefit_transaction_fixed_point:
+        type: integer
+      benefit_transaction_precentage:
+        type: integer
+      loyalty_end:
+        format: date-time
+        type: string
+      loyalty_start:
+        format: date-time
+        type: string
+      name:
+        type: string
+      policy_birthday_bonus:
+        type: boolean
+      policy_is_community_activity:
+        type: boolean
+      policy_is_community_member_get_member:
+        type: boolean
+      policy_is_transaction_first_purchase:
+        type: boolean
+      policy_transaction_amount:
+        type: integer
+      policy_transaction_qty:
+        type: integer
+      tier:
+        items:
+          $ref: '#/definitions/model.LoyaltyProgramTierAPI'
+        type: array
+    type: object
   model.LoyaltyProgram:
     properties:
       benefit_community_fixed_point:
@@ -78,6 +122,13 @@ definitions:
         format: date-time
         type: string
     type: object
+  model.LoyaltyProgramTierAPI:
+    properties:
+      loyalty_program_id:
+        type: string
+      tier_id:
+        type: string
+    type: object
   model.Tier:
     properties:
       created_at:
@@ -94,6 +145,48 @@ definitions:
         type: string
       updated_at:
         format: date-time
+        type: string
+    type: object
+  model.TierAPI:
+    properties:
+      maximal_point:
+        type: integer
+      minimal_point:
+        type: integer
+      name:
+        type: string
+    type: object
+  model.TransactionItemAPI:
+    properties:
+      item_name:
+        type: string
+      item_price:
+        type: integer
+      item_qty:
+        type: integer
+      item_subtotal:
+        type: integer
+      transaction_id:
+        type: string
+    type: object
+  redeemedpoint.ReedemedPointPayload:
+    properties:
+      member_id:
+        type: string
+      redeemed_point:
+        type: integer
+      type:
+        type: string
+    type: object
+  transaction.TransactionPayload:
+    properties:
+      item:
+        items:
+          $ref: '#/definitions/model.TransactionItemAPI'
+        type: array
+      total_amount:
+        type: integer
+      user_id:
         type: string
     type: object
 host: localhost:8000
@@ -137,11 +230,18 @@ paths:
           description: Not Found
       security:
       - ApiKeyAuth: []
-      summary: LoyaltiProgramList function
+      summary: List Loyalty Program
       tags:
       - LoyaltyProgram
     post:
       description: Store a loyalty program
+      parameters:
+      - description: Loyalty Program Payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/loyaltyprogram.LoyaltyProgramPayload'
       responses:
         "200":
           description: OK
@@ -149,7 +249,7 @@ paths:
           description: Bad Request
       security:
       - ApiKeyAuth: []
-      summary: LoyaltyPrograStore function
+      summary: Store Loyalty Program
       tags:
       - LoyaltyProgram
   /member-activity:
@@ -177,6 +277,13 @@ paths:
   /member-get-member:
     post:
       description: Store a Member Get Member
+      parameters:
+      - description: Member Activity Payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/community.MemberGetMemberPayload'
       responses:
         "200":
           description: OK
@@ -203,6 +310,12 @@ paths:
   /membership/{id}:
     get:
       description: Get membership detail
+      parameters:
+      - description: Member ID
+        in: path
+        name: id
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -216,6 +329,13 @@ paths:
   /redeem-point:
     post:
       description: Store a reedemed point
+      parameters:
+      - description: Member Activity Payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/redeemedpoint.ReedemedPointPayload'
       responses:
         "200":
           description: OK
@@ -225,10 +345,39 @@ paths:
       - ApiKeyAuth: []
       summary: ReedemedPointStore function
       tags:
-      - ReedemedPointStore
+      - ReedemedPoint
   /report:
     get:
       description: Get list of report
+      parameters:
+      - description: earned or redeemed
+        in: query
+        name: type
+        type: string
+      - description: member number
+        in: query
+        name: member_no
+        type: string
+      - description: "15022023"
+        in: query
+        name: dateStart
+        type: string
+      - description: "15022023"
+        in: query
+        name: dateEnd
+        type: string
+      - description: gt, lt, e, gte, lte
+        in: query
+        name: operator
+        type: string
+      - description: operator value
+        in: query
+        name: operator_value
+        type: string
+      - description: loyalty program id
+        in: query
+        name: loyalty_program_id
+        type: string
       responses:
         "200":
           description: OK
@@ -258,6 +407,13 @@ paths:
       - TierManagement
     post:
       description: Store a tier
+      parameters:
+      - description: Member Activity Payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.TierAPI'
       responses:
         "200":
           description: OK
@@ -273,6 +429,12 @@ paths:
   /tier-management/{id}:
     delete:
       description: Delete a tier
+      parameters:
+      - description: Tier id
+        in: path
+        name: id
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -285,6 +447,12 @@ paths:
       - TierManagement
     get:
       description: Get a tier detail
+      parameters:
+      - description: Tier id
+        in: path
+        name: id
+        required: true
+        type: string
       responses:
         "200":
           description: OK
@@ -299,6 +467,13 @@ paths:
       - TierManagement
     put:
       description: Update a tier
+      parameters:
+      - description: Member Activity Payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.TierAPI'
       responses:
         "200":
           description: OK
@@ -314,6 +489,13 @@ paths:
   /transaction:
     post:
       description: Store a transaction
+      parameters:
+      - description: Member Activity Payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/transaction.TransactionPayload'
       responses:
         "200":
           description: OK

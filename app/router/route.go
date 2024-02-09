@@ -12,9 +12,14 @@ import (
 
 	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func Handle(app *fiber.App) {
+	app.Use(cors.New(cors.Config{
+		AllowHeaders: "Content-Type, Accept, Authorization",
+	}))
+
 	api := app.Group("/api")
 	api.Get("/info", func(c *fiber.Ctx) error {
 		return c.Status(200).JSON(

@@ -12,7 +12,7 @@ import (
 // @Description  Get a tier detail
 // @Tags TierManagement
 // @Security ApiKeyAuth
-// @Params id path string true "Tier id"
+// @Param id path string true "Tier id"
 // @Success 200 {object} model.Tier
 // @Failure 404
 // @Router       /tier-management/{id} [get]

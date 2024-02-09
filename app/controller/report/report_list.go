@@ -12,13 +12,13 @@ import (
 // @Summary     ListReport function
 // @Description  Get list of report
 // @Tags Report
-// @Params type query stirng false "earned or redeemed"
-// @Params member_no query stirng false "member number"
-// @Params dateStart query stirng false "15022023"
-// @Params dateEnd query stirng false "15022023"
-// @Params operator query stirng false "gt, lt, e, gte, lte"
-// @Params operator_value query stirng false "operator value"
-// @Params loyalty_program_id query stirng false "loyalty program id"
+// @Param type query string false "earned or redeemed"
+// @Param member_no query string false "member number"
+// @Param dateStart query string false "15022023"
+// @Param dateEnd query string false "15022023"
+// @Param operator query string false "gt, lt, e, gte, lte"
+// @Param operator_value query string false "operator value"
+// @Param loyalty_program_id query string false "loyalty program id"
 // @Success 200
 // @Failure 400
 // @Failure 404

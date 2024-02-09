@@ -13,7 +13,7 @@ import (
 // @Summary     StoreMemberGetMember function
 // @Description  Store a Member Get Member
 // @Tags Community
-// @Params body json MemberGetMemberPayload true "Tier member get member"
+// @Param        body body MemberGetMemberPayload true "Member Activity Payload"
 // @Success 200
 // @Failure 400
 // @Failure 404

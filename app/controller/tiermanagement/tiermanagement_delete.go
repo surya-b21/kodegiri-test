@@ -12,7 +12,7 @@ import (
 // @Description  Delete a tier
 // @Security ApiKeyAuth
 // @Tags TierManagement
-// @Params id path string true "Tier id"
+// @Param id path string true "Tier id"
 // @Success 200
 // @Failure 404
 // @Router       /tier-management/{id} [delete]

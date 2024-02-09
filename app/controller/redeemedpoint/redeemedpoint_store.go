@@ -11,8 +11,8 @@ import (
 // @Summary      ReedemedPointStore function
 // @Description  Store a reedemed point
 // @Security ApiKeyAuth
-// @Tags ReedemedPointStore
-// @Params body json ReedemedPointPayload true "ReedemedPoint payload"
+// @Tags ReedemedPoint
+// @Param        body body ReedemedPointPayload true "Member Activity Payload"
 // @Success 200
 // @Failure 400
 // @Router       /redeem-point [post]

@@ -8,7 +8,7 @@ import (
 )
 
 // ListLoyaltyProgram func
-// @Summary      LoyaltiProgramList function
+// @Summary      List Loyalty Program
 // @Description  Get all loyalty program list
 // @Tags LoyaltyProgram
 // @Security ApiKeyAuth

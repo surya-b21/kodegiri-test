@@ -14,7 +14,7 @@ import (
 // @Description  Store a transaction
 // @Security ApiKeyAuth
 // @Tags StoreTransaction
-// @Params body json TransactionPayload true "Transaction payload"
+// @Param        body body TransactionPayload true "Member Activity Payload"
 // @Success 200
 // @Failure 400
 // @Router       /transaction [post]

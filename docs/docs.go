@@ -57,7 +57,7 @@ const docTemplate = `{
                 "tags": [
                     "LoyaltyProgram"
                 ],
-                "summary": "LoyaltiProgramList function",
+                "summary": "List Loyalty Program",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -83,7 +83,18 @@ const docTemplate = `{
                 "tags": [
                     "LoyaltyProgram"
                 ],
-                "summary": "LoyaltyPrograStore function",
+                "summary": "Store Loyalty Program",
+                "parameters": [
+                    {
+                        "description": "Loyalty Program Payload",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/loyaltyprogram.LoyaltyProgramPayload"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -137,6 +148,17 @@ const docTemplate = `{
                     "Community"
                 ],
                 "summary": "StoreMemberGetMember function",
+                "parameters": [
+                    {
+                        "description": "Member Activity Payload",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/community.MemberGetMemberPayload"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -184,6 +206,15 @@ const docTemplate = `{
                     "Membership"
                 ],
                 "summary": "Membership Detail function",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Member ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -203,9 +234,20 @@ const docTemplate = `{
                 ],
                 "description": "Store a reedemed point",
                 "tags": [
-                    "ReedemedPointStore"
+                    "ReedemedPoint"
                 ],
                 "summary": "ReedemedPointStore function",
+                "parameters": [
+                    {
+                        "description": "Member Activity Payload",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/redeemedpoint.ReedemedPointPayload"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -223,6 +265,50 @@ const docTemplate = `{
                     "Report"
                 ],
                 "summary": "ListReport function",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "earned or redeemed",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "member number",
+                        "name": "member_no",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "15022023",
+                        "name": "dateStart",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "15022023",
+                        "name": "dateEnd",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "gt, lt, e, gte, lte",
+                        "name": "operator",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "operator value",
+                        "name": "operator_value",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "loyalty program id",
+                        "name": "loyalty_program_id",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -274,6 +360,17 @@ const docTemplate = `{
                     "TierManagement"
                 ],
                 "summary": "Tier Store function",
+                "parameters": [
+                    {
+                        "description": "Member Activity Payload",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.TierAPI"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -299,6 +396,15 @@ const docTemplate = `{
                     "TierManagement"
                 ],
                 "summary": "Tier Detail function",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Tier id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -322,6 +428,17 @@ const docTemplate = `{
                     "TierManagement"
                 ],
                 "summary": "Tier Update function",
+                "parameters": [
+                    {
+                        "description": "Member Activity Payload",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.TierAPI"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -345,6 +462,15 @@ const docTemplate = `{
                     "TierManagement"
                 ],
                 "summary": "Tier Delete function",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Tier id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -367,6 +493,17 @@ const docTemplate = `{
                     "StoreTransaction"
                 ],
                 "summary": "StoreTransaction function",
+                "parameters": [
+                    {
+                        "description": "Member Activity Payload",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/transaction.TransactionPayload"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -401,6 +538,72 @@ const docTemplate = `{
                 },
                 "member_id": {
                     "type": "string"
+                }
+            }
+        },
+        "community.MemberGetMemberPayload": {
+            "type": "object",
+            "properties": {
+                "member_id": {
+                    "type": "string"
+                },
+                "person_email": {
+                    "type": "string"
+                },
+                "person_name": {
+                    "type": "string"
+                },
+                "person_phone_number": {
+                    "type": "string"
+                }
+            }
+        },
+        "loyaltyprogram.LoyaltyProgramPayload": {
+            "type": "object",
+            "properties": {
+                "benefit_community_fixed_point": {
+                    "type": "integer"
+                },
+                "benefit_transaction_fixed_point": {
+                    "type": "integer"
+                },
+                "benefit_transaction_precentage": {
+                    "type": "integer"
+                },
+                "loyalty_end": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "loyalty_start": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "policy_birthday_bonus": {
+                    "type": "boolean"
+                },
+                "policy_is_community_activity": {
+                    "type": "boolean"
+                },
+                "policy_is_community_member_get_member": {
+                    "type": "boolean"
+                },
+                "policy_is_transaction_first_purchase": {
+                    "type": "boolean"
+                },
+                "policy_transaction_amount": {
+                    "type": "integer"
+                },
+                "policy_transaction_qty": {
+                    "type": "integer"
+                },
+                "tier": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.LoyaltyProgramTierAPI"
+                    }
                 }
             }
         },
@@ -494,6 +697,17 @@ const docTemplate = `{
                 }
             }
         },
+        "model.LoyaltyProgramTierAPI": {
+            "type": "object",
+            "properties": {
+                "loyalty_program_id": {
+                    "type": "string"
+                },
+                "tier_id": {
+                    "type": "string"
+                }
+            }
+        },
         "model.Tier": {
             "type": "object",
             "properties": {
@@ -517,6 +731,71 @@ const docTemplate = `{
                 "updated_at": {
                     "type": "string",
                     "format": "date-time"
+                }
+            }
+        },
+        "model.TierAPI": {
+            "type": "object",
+            "properties": {
+                "maximal_point": {
+                    "type": "integer"
+                },
+                "minimal_point": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.TransactionItemAPI": {
+            "type": "object",
+            "properties": {
+                "item_name": {
+                    "type": "string"
+                },
+                "item_price": {
+                    "type": "integer"
+                },
+                "item_qty": {
+                    "type": "integer"
+                },
+                "item_subtotal": {
+                    "type": "integer"
+                },
+                "transaction_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "redeemedpoint.ReedemedPointPayload": {
+            "type": "object",
+            "properties": {
+                "member_id": {
+                    "type": "string"
+                },
+                "redeemed_point": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "transaction.TransactionPayload": {
+            "type": "object",
+            "properties": {
+                "item": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.TransactionItemAPI"
+                    }
+                },
+                "total_amount": {
+                    "type": "integer"
+                },
+                "user_id": {
+                    "type": "string"
                 }
             }
         }

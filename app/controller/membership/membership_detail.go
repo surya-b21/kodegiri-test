@@ -11,7 +11,7 @@ import (
 // @Summary      Membership Detail function
 // @Description  Get membership detail
 // @Security ApiKeyAuth
-// @Params id path string false "membership id"
+// @Param id path string  true  "Member ID"
 // @Tags Membership
 // @Success 200
 // @Failure 404

@@ -19,7 +19,7 @@ func ListMembership(c *fiber.Ctx) error {
 	db := services.DB
 
 	list := []model.User{}
-	mod := db.Select("member_number", "name", "email", "phone_number", "join_date", "`Point`.`point` as remained_point").Joins("Point").Find(&list)
+	mod := db.Joins("Point").Find(&list)
 
 	if mod.RowsAffected < 1 {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{

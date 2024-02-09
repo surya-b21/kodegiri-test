@@ -12,7 +12,7 @@ import (
 // @Description  Store a tier
 // @Security ApiKeyAuth
 // @Tags TierManagement
-// @Params body json model.TierAPI true "Tier payload"
+// @Param        body body model.TierAPI true "Member Activity Payload"
 // @Success 200 {object} model.Tier
 // @Failure 400
 // @Router       /tier-management [post]
