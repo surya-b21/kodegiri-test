@@ -53,5 +53,5 @@ type PointTransactionAPI struct {
 	UserID           *uuid.UUID `json:"user_id,omitempty" gorm:"type:varchar(36)"`
 	PointID          *uuid.UUID `json:"point_id,omitempty" gorm:"type:varchar(36)"`
 	LoyaltyProgramID *uuid.UUID `json:"loyalty_program_id,omitempty" gorm:"type:varchar(36)"`
-	TransactionID    *string    `json:"transaction_id,omitempty" gorm:"type:varchar(100)"`
+	TransactionID    *string    `json:"transaction_id,omitempty" gorm:"type:varchar(100);uniqueIndex"`
 }

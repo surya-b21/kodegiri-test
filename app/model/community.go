@@ -21,7 +21,7 @@ type MemberGetMemberAPI struct {
 	PersonName        *string          `json:"person_name,omitempty" gorm:"type:varchar(50)"`
 	PersonPhoneNumber *string          `json:"person_phone_number,omitempty" gorm:"type:varchar(20)"`
 	PersonEmail       *strfmt.Email    `json:"person_email,omitempty" gorm:"type:varchar(100);"`
-	TransactionDate   *strfmt.DateTime `json:"transaction_date,omitempty" gorm:"type:datetime"`
+	TransactionDate   *strfmt.DateTime `json:"transaction_date,omitempty" gorm:"type:timestamp" format:"date-time" swaggertype:"string"`
 	TransactionID     *string          `json:"transaction_id,omitempty" gorm:"type:varchar(50);uniqueIndex"`
 }
 
@@ -46,7 +46,7 @@ type MemberActivity struct {
 type MemberActivityAPI struct {
 	ActivityName    *string          `json:"activity_name,omitempty" gorm:"type:varchar(255)"`
 	MemberID        *uuid.UUID       `json:"member_id,omitempty" gorm:"type:varchar(36)"`
-	TransactionDate *strfmt.DateTime `json:"transaction_date,omitempty" gorm:"type:datetime"`
+	TransactionDate *strfmt.DateTime `json:"transaction_date,omitempty" gorm:"type:timestamp" format:"date-time" swaggertype:"string"`
 	TransactionID   *string          `json:"transaction_id,omitempty" gorm:"type:varchar(50);uniqueIndex"`
 }
 
