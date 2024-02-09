@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"errors"
 
+	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
@@ -32,4 +33,19 @@ func (s *Point) BeforeCreate(tx *gorm.DB) error {
 	s.Referral = &referral
 	s.Point = &point
 	return nil
+}
+
+type PointTransaction struct {
+	Base
+	PointTransactionAPI
+	TransactionDate strfmt.DateTime `json:"transaction_date,omitempty"`
+}
+
+type PointTransactionAPI struct {
+	Type             *string    `json:"type,omitempty" gorm:"type:varchar(10)"`
+	Value            *int       `json:"value,omitempty" gorm:"type:integer"`
+	RemainingPoint   *int       `json:"remaining_point,omitempty" gorm:"type:integer"`
+	UserID           *uuid.UUID `json:"user_id,omitempty" gorm:"type:varchar(36)"`
+	PointID          *uuid.UUID `json:"point_id,omitempty" gorm:"type:varchar(36)"`
+	LoyaltyProgramID *uuid.UUID `json:"loyalty_program_id,omitempty" gorm:"type:varchar(36)"`
 }

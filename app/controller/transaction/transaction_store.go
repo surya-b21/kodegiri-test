@@ -3,6 +3,7 @@ package transaction
 import (
 	"kodegiri/app/model"
 	"kodegiri/app/services"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
@@ -28,6 +29,13 @@ func StoreTransaction(c *fiber.Ctx) error {
 	db := services.DB
 	transaction := model.Transaction{}
 	transactionItems := []model.TransactionItem{}
+	user := model.User{}
+	mod := db.Find(&user, "id = ?", payload.UserID)
+	if mod.RowsAffected < 1 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "User not found",
+		})
+	}
 
 	tx := db.Begin()
 	parsedID, err := uuid.Parse(payload.UserID)
@@ -36,6 +44,44 @@ func StoreTransaction(c *fiber.Ctx) error {
 			"message": "Invalid user id",
 		})
 	}
+
+	firstPurchase := false
+	mod = tx.Model(&model.Transaction{}).Where("user_id = ?", user.ID).First(&model.Transaction{})
+	if mod.RowsAffected < 1 {
+		firstPurchase = true
+	}
+
+	totalQty := 0
+	for _, item := range payload.Item {
+		totalQty += *item.ItemQty
+	}
+
+	// find loyalty policy
+	loyaltyProgram := model.LoyaltyProgram{}
+	q := tx.Where("policy_is_transaction_first_purchase = ?", firstPurchase).
+		Or("policy_transaction_amount <= ?", payload.TotalAmount).
+		Or("policy_transaction_qty <= ?", totalQty).
+		Or("loyalty_start <= ?", time.Now()).
+		Or("loyalty_end >= ?", time.Now()).
+		Order("created_at DESC").
+		First(&loyaltyProgram)
+	if q.RowsAffected > 0 {
+		pointTransaction := model.PointTransaction{}
+		point := model.Point{}
+		tx.FirstOrCreate(&point, "user_id = ?", user.ID)
+
+		transType := "earned"
+		pointTransaction.Type = &transType
+		pointTransaction.Value = loyaltyProgram.BenefitCommunityFixedPoint
+		pointTransaction.RemainingPoint = point.Point
+		pointTransaction.LoyaltyProgramID = loyaltyProgram.ID
+		tx.Create(&pointTransaction)
+
+		newPoint := *point.Point + *pointTransaction.Value
+		point.Point = &newPoint
+		tx.Save(&point)
+	}
+
 	transaction.UserID = &parsedID
 	transaction.TotalAmount = &payload.TotalAmount
 	tx.Create(&transaction)
