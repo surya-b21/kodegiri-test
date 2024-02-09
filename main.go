@@ -14,6 +14,9 @@ import (
 // @description for test purpose
 // @host localhost:8000
 // @BasePath /api
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	services.InitDB()
 

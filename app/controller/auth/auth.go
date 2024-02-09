@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"kodegiri/app/model"
 	"kodegiri/app/services"
-	"log"
 	"net/mail"
 	"time"
 
@@ -21,12 +20,20 @@ type LoginPayload struct {
 	RememberToken *string `json:"remember_token,omitempty"`
 }
 
+// Login godoc
+// @Summary      Login function
+// @Description  Get token for auth
+// @Tags         Auth
+// @Accept       json
+// @Produce		 json
+// @Param        body body LoginPayload true "Login Payload"
+// @Success      200
+// @Router       /login [post]
 func Login(c *fiber.Ctx) error {
 	db := services.DB
 
 	payload := LoginPayload{}
 	if err := c.BodyParser(&payload); err != nil {
-		log.Println(err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "Invalid Payload",
 		})
@@ -53,7 +60,7 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	// find user
-	user := model.Users{}
+	user := model.User{}
 	db.Where("email = ?", payload.Email).Or("remember_token = ?", payload.RememberToken).First(&user)
 
 	if user.Email == nil {
