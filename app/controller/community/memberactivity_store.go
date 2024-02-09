@@ -12,7 +12,7 @@ import (
 // @Summary      Login function
 // @Description  Get token for auth
 // @Security ApiKeyAuth
-// @Tags         Auth
+// @Tags         Community
 // @Accept       json
 // @Produce		 json
 // @Param        body body MemberActivityPayload true "Member Activity Payload"

@@ -22,7 +22,7 @@ type MemberGetMemberAPI struct {
 	PersonPhoneNumber *string          `json:"person_phone_number,omitempty" gorm:"type:varchar(20)"`
 	PersonEmail       *strfmt.Email    `json:"person_email,omitempty" gorm:"type:varchar(100);"`
 	TransactionDate   *strfmt.DateTime `json:"transaction_date,omitempty" gorm:"type:datetime"`
-	TransactionID     *string          `json:"transaction_id,omitempty" gorm:"type:varchar(50)"`
+	TransactionID     *string          `json:"transaction_id,omitempty" gorm:"type:varchar(50);uniqueIndex"`
 }
 
 func (m *MemberGetMember) BeforeCreate(tx *gorm.DB) error {
@@ -47,7 +47,7 @@ type MemberActivityAPI struct {
 	ActivityName    *string          `json:"activity_name,omitempty" gorm:"type:varchar(255)"`
 	MemberID        *uuid.UUID       `json:"member_id,omitempty" gorm:"type:varchar(36)"`
 	TransactionDate *strfmt.DateTime `json:"transaction_date,omitempty" gorm:"type:datetime"`
-	TransactionID   *string          `json:"transaction_id,omitempty" gorm:"type:varchar(50)"`
+	TransactionID   *string          `json:"transaction_id,omitempty" gorm:"type:varchar(50);uniqueIndex"`
 }
 
 func (a *MemberActivity) BeforeCreate(tx *gorm.DB) error {

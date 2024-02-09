@@ -13,14 +13,14 @@ import (
 type Transaction struct {
 	Base
 	TransactionAPI
-	Users *User
-	Item  []*TransactionItem
+	User *User
+	Item []*TransactionItem
 }
 
 type TransactionAPI struct {
 	TotalAmount     *int             `json:"total_amount,omitempty" gorm:"type:integer"`
 	TransactionDate *strfmt.DateTime `json:"transaction_date,omitempty" gorm:"type:date"`
-	TransactionID   *string          `json:"transaction_id,omitempty" gorm:"type:varchar(50)"`
+	TransactionID   *string          `json:"transaction_id,omitempty" gorm:"type:varchar(50);uniqueIndex"`
 	UserID          *uuid.UUID       `json:"user_id,omitempty"`
 }
 

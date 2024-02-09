@@ -109,7 +109,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Auth"
+                    "Community"
                 ],
                 "summary": "Login function",
                 "parameters": [
