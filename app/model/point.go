@@ -39,6 +39,11 @@ type PointTransaction struct {
 	Base
 	PointTransactionAPI
 	TransactionDate strfmt.DateTime `json:"transaction_date,omitempty"`
+	User            *User
+	LoyaltyProgram  *LoyaltyProgram
+	MemberGetMember *MemberGetMember `json:"member_get_member,omitempty" gorm:"foreignKey:TransactionID; references:TransactionID"`
+	MemberActivity  *MemberActivity  `json:"member_activity,omitempty" gorm:"foreignKey:TransactionID; references:TransactionID"`
+	Transaction     *Transaction     `json:"transaction,omitempty" gorm:"foreignKey:TransactionID; references:TransactionID"`
 }
 
 type PointTransactionAPI struct {
@@ -48,4 +53,5 @@ type PointTransactionAPI struct {
 	UserID           *uuid.UUID `json:"user_id,omitempty" gorm:"type:varchar(36)"`
 	PointID          *uuid.UUID `json:"point_id,omitempty" gorm:"type:varchar(36)"`
 	LoyaltyProgramID *uuid.UUID `json:"loyalty_program_id,omitempty" gorm:"type:varchar(36)"`
+	TransactionID    *string    `json:"transaction_id,omitempty" gorm:"type:varchar(100)"`
 }

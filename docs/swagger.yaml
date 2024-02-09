@@ -224,6 +224,19 @@ paths:
       summary: ReedemedPointStore function
       tags:
       - ReedemedPointStore
+  /report:
+    get:
+      description: Get list of report
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: ListReport function
+      tags:
+      - Report
   /tier-management:
     get:
       description: Get all tier list

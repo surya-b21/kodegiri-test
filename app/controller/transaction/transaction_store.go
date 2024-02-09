@@ -45,15 +45,29 @@ func StoreTransaction(c *fiber.Ctx) error {
 		})
 	}
 
-	firstPurchase := false
-	mod = tx.Model(&model.Transaction{}).Where("user_id = ?", user.ID).First(&model.Transaction{})
-	if mod.RowsAffected < 1 {
-		firstPurchase = true
-	}
+	transaction.UserID = &parsedID
+	transaction.TotalAmount = &payload.TotalAmount
+	tx.Create(&transaction)
 
 	totalQty := 0
 	for _, item := range payload.Item {
 		totalQty += *item.ItemQty
+		transactionItems = append(transactionItems, model.TransactionItem{
+			TransactionItemAPI: model.TransactionItemAPI{
+				TransactionID: transaction.ID,
+				ItemName:      item.ItemName,
+				ItemPrice:     item.ItemPrice,
+				ItemQty:       item.ItemQty,
+				ItemSubtotal:  item.ItemSubtotal,
+			},
+		})
+	}
+	tx.CreateInBatches(transactionItems, 100)
+
+	firstPurchase := false
+	mod = tx.Model(&model.Transaction{}).Where("user_id = ?", user.ID).First(&model.Transaction{})
+	if mod.RowsAffected < 1 {
+		firstPurchase = true
 	}
 
 	// find loyalty policy
@@ -75,29 +89,13 @@ func StoreTransaction(c *fiber.Ctx) error {
 		pointTransaction.Value = loyaltyProgram.BenefitCommunityFixedPoint
 		pointTransaction.RemainingPoint = point.Point
 		pointTransaction.LoyaltyProgramID = loyaltyProgram.ID
+		pointTransaction.TransactionID = transaction.TransactionID
 		tx.Create(&pointTransaction)
 
 		newPoint := *point.Point + *pointTransaction.Value
 		point.Point = &newPoint
 		tx.Save(&point)
 	}
-
-	transaction.UserID = &parsedID
-	transaction.TotalAmount = &payload.TotalAmount
-	tx.Create(&transaction)
-
-	for _, item := range payload.Item {
-		transactionItems = append(transactionItems, model.TransactionItem{
-			TransactionItemAPI: model.TransactionItemAPI{
-				TransactionID: transaction.ID,
-				ItemName:      item.ItemName,
-				ItemPrice:     item.ItemPrice,
-				ItemQty:       item.ItemQty,
-				ItemSubtotal:  item.ItemSubtotal,
-			},
-		})
-	}
-	tx.CreateInBatches(transactionItems, 100)
 
 	tx.Commit()
 

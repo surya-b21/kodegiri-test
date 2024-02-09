@@ -54,6 +54,7 @@ func StoreMemberGetMember(c *fiber.Ctx) error {
 		pointTransaction.Value = loyaltyprogram.BenefitCommunityFixedPoint
 		pointTransaction.RemainingPoint = point.Point
 		pointTransaction.LoyaltyProgramID = loyaltyprogram.ID
+		pointTransaction.TransactionID = mgm.TransactionID
 		db.Create(&pointTransaction)
 
 		newPoint := *point.Point + *pointTransaction.Value

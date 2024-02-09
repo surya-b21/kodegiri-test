@@ -6,6 +6,7 @@ import (
 	"kodegiri/app/controller/loyaltyprogram"
 	"kodegiri/app/controller/membership"
 	"kodegiri/app/controller/redeemedpoint"
+	"kodegiri/app/controller/report"
 	"kodegiri/app/controller/tiermanagement"
 	"kodegiri/app/controller/transaction"
 
@@ -55,4 +56,7 @@ func Handle(app *fiber.App) {
 	// loyalty program
 	protected.Get("/loyalty-program", loyaltyprogram.ListLoyaltyProgram)
 	protected.Post("/loyalty-program", loyaltyprogram.StoreLoyaltyProgram)
+
+	// Report
+	protected.Get("/report", report.ListReport)
 }

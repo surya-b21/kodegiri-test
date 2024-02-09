@@ -216,6 +216,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/report": {
+            "get": {
+                "description": "Get list of report",
+                "tags": [
+                    "Report"
+                ],
+                "summary": "ListReport function",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/tier-management": {
             "get": {
                 "security": [
