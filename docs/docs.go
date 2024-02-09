@@ -431,10 +431,12 @@ const docTemplate = `{
                     }
                 },
                 "loyalty_end": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "loyalty_start": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "name": {
                     "type": "string"

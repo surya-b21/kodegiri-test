@@ -16,8 +16,8 @@ type User struct {
 	ReedemedPoint    int                 `json:"reedemed_point,omitempty"`
 	EarnedPoint      int                 `json:"earned_point,omitempty"`
 	RemaiendPoint    int                 `json:"remained_point,omitempty"`
-	Point            *Point              `gorm:"foreginKey:UserID;references:ID"`
-	PointTransaction []*PointTransaction `gorm:"foreginKey:UserID;references:ID"`
+	Point            *Point              `json:"point,omitempty" gorm:"foreginKey:UserID;references:ID"`
+	PointTransaction []*PointTransaction `json:"point_transaction,omitempty" gorm:"foreginKey:UserID;references:ID"`
 }
 
 type UserAPI struct {

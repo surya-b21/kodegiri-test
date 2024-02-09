@@ -31,8 +31,10 @@ definitions:
         format: uuid
         type: string
       loyalty_end:
+        format: date-time
         type: string
       loyalty_start:
+        format: date-time
         type: string
       loyaltyProgramTier:
         items:
